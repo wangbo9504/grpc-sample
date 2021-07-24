@@ -1,0 +1,31 @@
+// 指定使用proto3的语法，如果不指定的话，编译器会使用proto2去编译
+syntax = "proto3";
+
+// option选项: 影响 特定环境下 的处理方式
+
+// 不同的类会分散为多个java文件(默认false代表所有内容集中在同一个java文件)
+option java_multiple_files = true;
+// 指定生成的类应该放在什么Java包名下(默认采用包名)
+option java_package = "io.grpc.sample.helloworld";
+// 指定生成的java文件的类名(默认根据文件名采用驼峰式生成)
+option java_outer_classname = "HelloWorldProto";
+
+// 声明包名, 防止项目间命名冲突
+package helloworld;
+
+// 定义服务接口
+service Greeter {
+  // 定义一个简单rpc方法sayHello, 接收一个 HelloRequest 消息体, 返回一个 HelloReply 消息体
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+}
+
+// 定义请求消息体
+message HelloRequest {
+  // 消息字段
+  string name = 1;
+}
+
+// 定义响应消息体
+message HelloReply {
+  string message = 1;
+}
